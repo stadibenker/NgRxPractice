@@ -1,22 +1,28 @@
 import { Component } from '@angular/core';
 import { Todo } from '../../models';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { addTodo, loadTodos, removeTodo } from '../../state';
+import { Observable } from 'rxjs';
+import { loadTodos, addTodo, removeTodo } from '../../state/todo';
+import { selectAllTodos } from '../../state/todo/todo.selectors';
+
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-todo',
   standalone: true,
-  imports: [],
+  imports: [MatListModule, MatIconModule, CommonModule, FormsModule],
   templateUrl: './todo.component.html',
   styleUrl: './todo.component.scss'
 })
 export class TodoComponent {
   public todo = '';
-  public allTodos$ = new Observable;
+  public allTodos$ = new Observable<Todo[]>;
 
   constructor(private store: Store) {
-    this.allTodos$ = this.store.select(selectAllTodos)
+    this.allTodos$ = this.store.select(selectAllTodos as any);
   }
 
   ngOnInit() {

@@ -1,1 +1,14 @@
-<p>todo works!</p>
+<h2>Let's get things done!</h2>
+
+<div class="container">
+    <h2>Let's get things done!</h2>
+    <input [(ngModel)]="todo"/>
+    <button color="success" fill="outline" (click)="addTodo()">Add Todo</button>
+
+    <mat-list lines="none">
+        <mat-list-item (click)="removeTodo(todo)" button *ngFor="let todo of allTodos$ | async">
+            <mat-icon name="checkmark-circle-outline" slot="end"></mat-icon>
+            <span> {{todo.content}} </span>
+        </mat-list-item>
+    </mat-list>
+</div>
